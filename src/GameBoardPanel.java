@@ -3,11 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-
 public class GameBoardPanel extends JPanel {
 
     private JButton btnNewGame = new JButton("New Game");
-
+    private JButton btnAbout = new JButton("About");
 
     private static final long serialVersionUID = 1L;
     public static final int CELL_SIZE = 60;
@@ -18,26 +17,30 @@ public class GameBoardPanel extends JPanel {
     private String player1Name;
 
     public GameBoardPanel() {
+        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         super.setLayout(new GridLayout(SudokuConstants.GRID_SIZE, SudokuConstants.GRID_SIZE));
+
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
                 cells[row][col] = new Cell(row, col);
                 super.add(cells[row][col]);
             }
+        }
 
 
-            btnNewGame.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Panggil restartGame() untuk semua sel di papan permainan
-                    for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
-                        for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
-                            cells[row][col].restartGame();
-                        }
+
+        btnNewGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Panggil restartGame() untuk semua sel di papan permainan
+                for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
+                    for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
+                        cells[row][col].restartGame();
                     }
                 }
-            });
-        }
+            }
+        });
+
         CellInputListener listener = new CellInputListener();
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
@@ -90,7 +93,6 @@ public class GameBoardPanel extends JPanel {
         }
     }
 
-
     private class CellInputListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -117,8 +119,9 @@ public class GameBoardPanel extends JPanel {
 
             // Periksa jika permainan sudah selesai setelah memasukkan angka baru
             if (isSolved()) {
-                    JOptionPane.showMessageDialog(null, "Congratulation "+ player1Name + "!");
+                JOptionPane.showMessageDialog(null, "Congratulation "+ player1Name + "!");
             }
+
         }
     }
 }
