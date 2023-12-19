@@ -15,6 +15,8 @@ public class Main extends JFrame {
     private static final long serialVersionUID = 1L;
     GameBoardPanel board = new GameBoardPanel();
     JButton btnRestart = new JButton("Restart");
+    JButton btnAbout = new JButton("About");
+
 
     public Main() {
         Container cp = getContentPane();
@@ -30,6 +32,14 @@ public class Main extends JFrame {
 
         btnRestart.addActionListener(e -> {
             board.restartGame();
+        });
+
+        JPanel aboutPanel = new JPanel();
+        restartPanel.add(btnAbout);
+        cp.add(aboutPanel, BorderLayout.NORTH);
+
+        btnAbout.addActionListener(e -> {
+            SwingUtilities.invokeLater(AboutFrame::new);
         });
 
         pack();
