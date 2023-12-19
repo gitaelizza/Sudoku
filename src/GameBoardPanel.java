@@ -95,13 +95,17 @@ public class GameBoardPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             Cell sourceCell = (Cell) e.getSource();
-            int numberIn;
+            String inputText = sourceCell.getText().trim();
 
-            try {
-                numberIn = Integer.parseInt(sourceCell.getText());
-            } catch (NumberFormatException ex) {
-                // Tangani jika input tidak valid (bukan angka)
-                numberIn = 0;
+            if(!inputText.matches("[1-9]")){
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a number between 1-9");
+                return;
+            }
+
+            int numberIn = Integer.parseInt(inputText);
+            if (numberIn < 1 || numberIn > 9) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a number between 1-9.");
+                return;
             }
 
             if (numberIn == sourceCell.number) {
